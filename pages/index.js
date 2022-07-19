@@ -1,12 +1,14 @@
-import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
-import CardListItem from '../components/CardListItem';
-import CardItem from '../components/CardItem';
+import { Row, Button, Col } from 'react-bootstrap';
 import PageLayout from '../components/PageLayout';
 import AuthorIntro from '../components/AuthorIntro';
 import FilterMenu from '../components/FilterMenu';
 import { useState } from 'react';
 
+import { useGetBlogs } from '../actions';
+import { getPaginatedBlogs } from '../bryan-breathe-blog-sanity/lib/api';
+
+import CardItem from '../components/CardItem';
+import CardListItem from '../components/CardListItem';
 import { useGetBlogsPages } from '../actions/pagination';
 import { getAllBlogs } from '../bryan-breathe-blog-sanity/lib/api';
 import moment from 'moment';
@@ -46,39 +48,48 @@ export const BlogList = ({ data = [], filter }) => {
   );
 };
 
-export default function Home({ blogs }) {
+export default function Home({ blogs, preview }) {
   const [filter, setFilter] = useState({
     view: { list: 0 },
+    date: { asc: 0 },
   });
 
-  const { data, size, setSize, hitEnd } = useGetBlogsPages({
-    blogs,
-    filter,
-  });
+  const { data, size, setSize, hitEnd } = useGetBlogsPages({ filter });
 
   return (
     <PageLayout>
+      {preview && <PreviewAlert />}
       <AuthorIntro />
       <FilterMenu
         filter={filter}
-        onChange={(option, value) => {
-          setFilter({ ...filter, [option]: value });
-        }}
+        onChange={(option, value) => setFilter({ ...filter, [option]: value })}
       />
       <hr />
-
       <Row className='mb-5'>
-        <BlogList filter={filter} data={data || [blogs]} />
+        <BlogList data={data || [blogs]} filter={filter} />
       </Row>
+      <div style={{ textAlign: 'center' }}>
+        <Button
+          onClick={() => setSize(size + 1)}
+          disabled={hitEnd}
+          size='lg'
+          variant='outline-secondary'
+        >
+          {/* {isLoadingMore ? '...' : isReachingEnd ? 'No more blogs' : 'More Blogs'} */}
+          Load More
+        </Button>
+      </div>
     </PageLayout>
   );
 }
 
-export async function getStaticProps() {
-  const blogs = await getAllBlogs({ offset: 0 });
+export async function getStaticProps({ preview = false }) {
+  const blogs = await getPaginatedBlogs({ offset: 0, date: 'desc' });
   return {
     props: {
       blogs,
+      preview,
     },
+    revalidate: 1,
   };
 }

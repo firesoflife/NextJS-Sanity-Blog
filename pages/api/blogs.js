@@ -1,6 +1,8 @@
-import { getAllBlogs } from '../../bryan-breathe-blog-sanity/lib/api';
+import { getPaginatedBlogs } from '../../bryan-breathe-blog-sanity/lib/api';
 
-export default async function getBlog(req, res) {
-  const data = await getAllBlogs();
+export default async function getBlogs(req, res) {
+  const offset = parseInt(req.query.offset || 0, 10);
+  const date = req.query.date || 'desc';
+  const data = await getPaginatedBlogs({ offset, date });
   res.status(200).json(data);
 }

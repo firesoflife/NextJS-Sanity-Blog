@@ -16,17 +16,49 @@ export function urlFor(source) {
   return builder.image(source);
 }
 
-export async function getAllBlogs({ offset } = { offset: 0 }) {
+// export async function getAllBlogs(
+//   { offset, date } = { offset: 0, date: 'desc' }
+// ) {
+//   const results = await client.fetch(
+//     `*[_type == "blog"] | order(date ${date}) {${blogFields}}[${offset}...${
+//       offset + 3
+//     }]`
+//   );
+//   return results;
+// }
+
+export async function getAllBlogs() {
   const results = await client.fetch(
-    `*[_type == "blog"] | order(date desc) {${blogFields}}[${offset}...${
-      offset + 3
+    `*[_type == "blog"] | order(date desc) {${blogFields}}`
+  );
+  return results;
+}
+
+export async function getPaginatedBlogs(
+  { offset = 0, date = 'desc' } = { offset: 0, date: 'desc' }
+) {
+  const results = await client.fetch(
+    `*[_type == "blog"] | order(date ${date}) {${blogFields}}[${offset}...${
+      offset + 6
     }]`
   );
   return results;
 }
 
-export async function getBlogBySlug(slug) {
-  const result = await client
+export const onBlogUpdate = (slug) => {
+  const client = getClient(true);
+  return client.listen(
+    `*[_type == "blog" && slug.current == $slug] {
+    ${blogFields}
+    content[]{..., "asset": asset->}
+  }`,
+    { slug }
+  );
+};
+
+export async function getBlogBySlug(slug, preview) {
+  const currentClient = getClient(preview);
+  const result = await currentClient
     .fetch(
       `*[_type == "blog" && slug.current == $slug] {
       ${blogFields}
@@ -34,7 +66,7 @@ export async function getBlogBySlug(slug) {
     }`,
       { slug }
     )
-    .then((res) => res?.[0]);
+    .then((res) => (preview ? (res?.[1] ? res[1] : res[0]) : res?.[0]));
 
   return result;
 }
