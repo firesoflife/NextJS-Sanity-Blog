@@ -10,7 +10,8 @@ import { getPaginatedBlogs } from '../bryan-breathe-blog-sanity/lib/api';
 import CardItem from '../components/CardItem';
 import CardListItem from '../components/CardListItem';
 import { useGetBlogsPages } from '../actions/pagination';
-import { getAllBlogs } from '../bryan-breathe-blog-sanity/lib/api';
+import CardItemBlank from '../components/CardItemBlank';
+import CardListItemBlank from '../components/CardListItemBlank';
 import moment from 'moment';
 
 export const BlogList = ({ data = [], filter }) => {

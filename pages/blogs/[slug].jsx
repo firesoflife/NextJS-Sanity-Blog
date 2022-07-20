@@ -7,6 +7,7 @@ import {
 import { Row, Col } from 'react-bootstrap';
 import BlogHeader from '../../components/BlogHeader';
 import BlogContent from '../../components/BlogContent';
+import moment from 'moment';
 
 const BlogDetail = ({ blog }) => {
   return (
