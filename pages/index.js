@@ -4,15 +4,13 @@ import AuthorIntro from '../components/AuthorIntro';
 import FilterMenu from '../components/FilterMenu';
 import { useState } from 'react';
 
-import { useGetBlogs } from '../actions';
 import PreviewAlert from '../components/PreviewAlert';
-import { getPaginatedBlogs } from '../bryan-breathe-blog-sanity/lib/api';
+import { getPaginatedBlogs } from '../lib/api';
 
 import CardItem from '../components/CardItem';
 import CardListItem from '../components/CardListItem';
 import { useGetBlogsPages } from '../actions/pagination';
-import CardItemBlank from '../components/CardItemBlank';
-import CardListItemBlank from '../components/CardListItemBlank';
+
 import moment from 'moment';
 
 export const BlogList = ({ data = [], filter }) => {

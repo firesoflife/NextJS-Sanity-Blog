@@ -1,4 +1,4 @@
-import { getPaginatedBlogs } from '../../bryan-breathe-blog-sanity/lib/api';
+import { getPaginatedBlogs } from '../../lib/api';
 
 export default async function getBlogs(req, res) {
   const offset = parseInt(req.query.offset || 0, 10);

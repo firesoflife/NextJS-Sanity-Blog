@@ -4,7 +4,8 @@ import {
   getBlogBySlug,
   getPaginatedBlogs,
   urlFor,
-} from '../../bryan-breathe-blog-sanity/lib/api';
+} from '../../lib/api';
+
 import { Row, Col } from 'react-bootstrap';
 import BlogHeader from '../../components/BlogHeader';
 import BlogContent from '../../components/BlogContent';

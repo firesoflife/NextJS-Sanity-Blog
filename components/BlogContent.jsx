@@ -1,6 +1,6 @@
 import BlockContent from '@sanity/block-content-to-react';
 import HighlightCode from './HighlightCode';
-import { urlFor } from '../bryan-breathe-blog-sanity/lib/api';
+import { urlFor } from '../lib/api';
 
 const serializers = {
   types: {

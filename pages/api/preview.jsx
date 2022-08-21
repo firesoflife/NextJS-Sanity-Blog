@@ -1,5 +1,4 @@
-// import { getBlogBySlug } from 'lib/api';
-import { getBlogBySlug } from '../../bryan-breathe-blog-sanity/lib/api';
+import { getBlogBySlug } from '../../lib/api';
 
 export default async function enablePreview(req, res) {
   if (

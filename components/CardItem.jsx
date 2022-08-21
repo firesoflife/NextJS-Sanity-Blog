@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import Link from 'next/link';
-import { urlFor } from '../bryan-breathe-blog-sanity/lib/api';
+import { urlFor } from '../lib/api';
 
 const CardItem = ({
   title,
