@@ -10,6 +10,7 @@ import BlogHeader from '../../components/BlogHeader';
 import BlogContent from '../../components/BlogContent';
 import moment from 'moment';
 import { useRouter } from 'next/router';
+import ErrorPage from 'next/error';
 
 import PreviewAlert from '../../components/PreviewAlert';
 

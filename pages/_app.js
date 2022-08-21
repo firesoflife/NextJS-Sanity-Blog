@@ -24,6 +24,7 @@ import 'highlight.js/styles/base16/darcula.css';
 import 'react-toggle/style.css';
 import '../styles/index.scss';
 
+// eslint-disable-next-line react/display-name
 export default ({ Component, pageProps }) => (
   <ThemeProvider>
     <Component {...pageProps} />;
