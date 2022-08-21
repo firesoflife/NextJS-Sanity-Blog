@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# sanity specific
+/bryan-breathe-blog-sanity
+
 # next.js
 /.next/
 /out/
