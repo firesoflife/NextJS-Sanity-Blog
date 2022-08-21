@@ -1,4 +1,4 @@
-import client from './sanity';
+import client, { previewClient } from './sanity';
 import imageUrlBuilder from '@sanity/image-url';
 
 const blogFields = `
@@ -11,21 +11,11 @@ coverImage,
 `;
 
 const builder = imageUrlBuilder(client);
+const getClient = (preview) => (preview ? previewClient : client);
 
 export function urlFor(source) {
   return builder.image(source);
 }
-
-// export async function getAllBlogs(
-//   { offset, date } = { offset: 0, date: 'desc' }
-// ) {
-//   const results = await client.fetch(
-//     `*[_type == "blog"] | order(date ${date}) {${blogFields}}[${offset}...${
-//       offset + 3
-//     }]`
-//   );
-//   return results;
-// }
 
 export async function getAllBlogs() {
   const results = await client.fetch(
@@ -57,7 +47,7 @@ export const onBlogUpdate = (slug) => {
 };
 
 export async function getBlogBySlug(slug, preview) {
-  // const currentClient = getClient(preview);
+  const currentClient = getClient(preview);
   const result = await currentClient
     .fetch(
       `*[_type == "blog" && slug.current == $slug] {

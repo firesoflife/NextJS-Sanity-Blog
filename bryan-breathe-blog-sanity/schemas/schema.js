@@ -143,9 +143,7 @@ export default createSchema({
           name: 'slug',
           type: 'slug',
           title: 'Slug',
-          validation: (Rule) => {
-            return Rule.required();
-          },
+          validation: (Rule) => Rule.required(),
         },
       ],
     },

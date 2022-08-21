@@ -6,7 +6,7 @@ const AuthorIntro = () => {
     <Row>
       <Col md='8'>
         {/* AUTHOR INTRO STARTS */}
-        <Card className='mb-4 p-2 admin-intro'>
+        <div className='mb-4 p-2 admin-intro'>
           <Image
             roundedCircle
             width={64}
@@ -22,7 +22,7 @@ const AuthorIntro = () => {
               and freelance developer. This is my blog.
             </p>
           </Card.Body>
-        </Card>
+        </div>
         {/*  AUTHOR INTO ENDS */}
       </Col>
     </Row>
